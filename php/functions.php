@@ -1,17 +1,28 @@
 <?php
 
+/**
+ * Class functions
+ * Esta clase almacena metodos genericos de utileria
+ * 
+ * Bryan Muñoz 
+ */
 class functions {
-
-    private $method;
+    /*
+     * Constructor de la clase
+     * Bryan Muñoz 
+     */
 
     public function __construct() {
         
     }
 
-    private function buildJson($data, $response, $message) {
-        $json = "{'response':'" . $response . "', 'message':'" . $message . "', 'data':'" . $data . "'}";
-        return $json;
-    }
+    /*
+     * function getRealIp()
+     * 
+     * Obtiene la ip remota del ordenador desde donde se ejecuta el metodo
+     * 
+     * Bryan Muñoz 
+     */
 
     public function getRealIp() {
 
@@ -41,6 +52,23 @@ class functions {
         return $json;
     }
 
+    /*
+     * function validateRequestParameter()
+     * 
+     * Valida si exite el valor ingresado en el arreglo global $_REQUEST[]
+     * Y valida si es numerico para que retorne un string para concatenar en un json
+     * 
+     * PARAMETROS 
+     * $item -> String que identifica la posicion en el string que retorna
+     * $parameterUrl -> Es la pocision a buscar en el arreglo global $_REQUEST[]
+     * 
+     * RETORNO 
+     * String concatenado
+     * 
+     * Bryan Muñoz
+     * 
+     */
+
     public function validateRequestParameter($item, $parameterUrl) {
         if (isset($_REQUEST[$parameterUrl]) && is_numeric($_REQUEST[$parameterUrl])) {
             return "\r\n  \"$item\": $_REQUEST[$parameterUrl]";
@@ -49,6 +77,18 @@ class functions {
         }
         return "\r\n  \"$item\": null";
     }
+    
+    /*
+     * function concatComma()
+     * 
+     * Concatena una coma cuando recibe un valor que NO es null
+     * 
+     * PARAMETROS
+     * $value -> Valor al que se le va a concatenar la coma 
+     *  
+     * RETORNO
+     * Retorna $value concatenado con una coma en caso de que NO se null
+     */
 
     public function concatComma($value) {
         if (!is_null($value)) {

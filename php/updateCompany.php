@@ -6,7 +6,7 @@ if (isset($_REQUEST["id"]) && !empty($_REQUEST["id"])) {
     ini_set("display_errors", "on");
     session_start();
 
-    $config = parse_ini_file('Config.ini');
+    $config = parse_ini_file('../config/Config.ini');
     $functions = new functions();
 
     $ipUser = $functions->getRealIp();

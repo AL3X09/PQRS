@@ -1,14 +1,14 @@
 <?php
 
-//ini_set("display_errors", "on");
-
 require_once './functions.php';
-//if (isset($_REQUEST["id"]) && !empty($_REQUEST["id"])) {
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('Config.ini');
+$config = parse_ini_file('../config/Config.ini'); // Archivo de configuracion 
+
 $functions = new functions();
+
+
 $idTyping = (isset($_REQUEST["IdTipificacion"])) ? $_REQUEST["IdTipificacion"] : "null";
 $name = (isset($_REQUEST["Nombre"])) ? $_REQUEST["Nombre"] : "null";
 $status = (isset($_REQUEST["Activo"])) ? $_REQUEST["Activo"] : "null";
@@ -20,6 +20,30 @@ $timeResponse = (isset($_REQUEST["TiempoEstimadoRespuesta"])) ? $_REQUEST["Tiemp
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 $array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser);
+
+
+/*
+ * function peticion()
+ * 
+ * Realiza una peticion para consultar las tipificaciones asociadas a unos filtros ingresados
+ * 
+ * PARAMETROS
+ * 
+ *  $idTyping       --> Filtro de tipificacion
+ *  $name           --> Filtro por el nombre
+ *  $status         --> Filtro por estado
+ *  $dependece      --> Filtro por dependecia(Padre)
+ *  $codeSuper      --> Filtro por codigoSuper
+ *  $timeResponse   --> Filtro por tiempo de respuesta
+ *  $idUser         --> id de la session
+ *  $ipUser         --> ip del que ejecuta la accion
+ * 
+ * RETORNO 
+ *  json_encode($response,true); --> Array de la respuesta de la peticion a la API
+ * 
+ * Bryan Muñoz
+ * 
+ */
 
 function peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser) {
     $paramsRequest = "{\r\n  \"IdTipificacion\": " . $idTyping . "," .
@@ -60,12 +84,15 @@ function peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeRespon
     }
 }
 
+/*
+ * Valida si el la peticion es un arreglo
+ * 
+ */
 if (!is_array($array)) {
     var_dump($array);
 } else {
     $result = array();
     $row;
-    $ciclo = 0;
     foreach ($array as $key => $value) {
         $hasCildren = sizeof(peticion("null", "null", "null", $value["IdTipificacion"], "null", "null", "null", "null"));
         $row = array(
@@ -81,10 +108,7 @@ if (!is_array($array)) {
             "total" => $hasCildren,
             "children" => array()
         );
-        $ciclo ++;
-
         array_push($result, $row);
     }
-//    var_dump($result);
     echo json_encode($result, true);
 }

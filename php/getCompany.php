@@ -1,10 +1,12 @@
 <?php
 
+$config = parse_ini_file("../config/Config.ini");
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => "http://server:8002/api/Pqr_Empresas/EmpresasConsultarTodo",
+    CURLOPT_URL => $config['server'] . "/api/Pqr_Empresas/EmpresasConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
