@@ -10,26 +10,20 @@ $functions = new functions();
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
-$status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
+$name = $_REQUEST["Nombre"];
+$idTypeDocument = $_REQUEST["IdTipoDocumento"];
 
-$paramsRequest = "{"
-        . "\r\n  \"Nombre\": \"$nameTyping\","
-        . "\r\n  \"Activo\": $status,"
-        . "\r\n  \"Padre\": $dependece,"
-        . "\r\n  \"CodigoSuper\": $codeSuper,"
-        . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
+$paramsRequest = "{\r\n  \"IdTipoDocumento\": $idTypeDocument, "
+        . "\r\n  \"Nombre\": \"$name\","
         . "\r\n  \"Usuario\": $idUser,"
-        . "\r\n  \"DirIp\": \"$$ipUser\"\r\n}";
+        . "\r\n  \"DirIp\": \"$ipUser\"\r\n"
+        . "}";
 echo $paramsRequest;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Tipificacion/PqrTipificacionInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_TipoDocumentos/TablaActualizar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -40,7 +34,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: b91c14ea-eb1e-cd0d-ea19-67ce7af08732"
+        "postman-token: c8ea4430-8309-4562-4396-a70cb2d6a69e"
     ),
 ));
 

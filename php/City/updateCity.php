@@ -4,32 +4,37 @@ require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../../config/config.ini');
+$config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
-$status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
+$name = $_REQUEST["Nombre"];
+$idDepartament = $_REQUEST["IdDepartamento"];
+$state = 0;
+if (isset($_REQUEST["Activo"])) {
+    $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;
+}
+$codeThird = $_REQUEST["CodigoTercero"];
+$codeDANE = $_REQUEST["CodigoDANE"];
+$idCity = $_REQUEST["IdCiudad"];
 
 $paramsRequest = "{"
-        . "\r\n  \"Nombre\": \"$nameTyping\","
-        . "\r\n  \"Activo\": $status,"
-        . "\r\n  \"Padre\": $dependece,"
-        . "\r\n  \"CodigoSuper\": $codeSuper,"
-        . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
+        . "\r\n  \"IdCiudad\": $idCity,"
+        . "\r\n  \"Nombre\": \"$name\","
+        . "\r\n  \"CodigoDANE\": $codeDANE,"
+        . "\r\n  \"CodigoTercero\": \"$codeThird\","
+        . "\r\n  \"Activo\": $state,"
+        . "\r\n  \"IdDepartamento\": $idDepartament,"
         . "\r\n  \"Usuario\": $idUser,"
-        . "\r\n  \"DirIp\": \"$$ipUser\"\r\n}";
-echo $paramsRequest;
+        . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Tipificacion/PqrTipificacionInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Ciudades/CiudadesActualizar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -40,7 +45,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: b91c14ea-eb1e-cd0d-ea19-67ce7af08732"
+        "postman-token: 2ae787bc-d047-53d9-1b0f-4a71ba313e75"
     ),
 ));
 

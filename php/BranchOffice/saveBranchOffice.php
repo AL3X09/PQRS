@@ -4,32 +4,28 @@ require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../../config/config.ini');
+$config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
-$status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
+$name = $_REQUEST["Nombre"];
+$idCity = $_REQUEST["IdCiudad"];
+$codeThird = $_REQUEST["CodigoTercero"];
 
-$paramsRequest = "{"
-        . "\r\n  \"Nombre\": \"$nameTyping\","
-        . "\r\n  \"Activo\": $status,"
-        . "\r\n  \"Padre\": $dependece,"
-        . "\r\n  \"CodigoSuper\": $codeSuper,"
-        . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
+$paramsRequest = "{\r\n  \"IdSucursal\": 1,"
+        . "\r\n  \"Nombre\": \"$name\","
+        . "\r\n  \"IdCiudad\": $idCity,"
+        . "\r\n  \"CodigoTercero\": \"$codeThird\","
         . "\r\n  \"Usuario\": $idUser,"
-        . "\r\n  \"DirIp\": \"$$ipUser\"\r\n}";
-echo $paramsRequest;
+        . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Tipificacion/PqrTipificacionInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Sucursales/PqrSucursalesInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -40,7 +36,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: b91c14ea-eb1e-cd0d-ea19-67ce7af08732"
+        "postman-token: b4cd861e-f720-7488-304e-2b8f6278813c"
     ),
 ));
 

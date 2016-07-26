@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ciudades</title>
+        <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
@@ -11,17 +11,17 @@
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
     </head>
     <body>
+        <h2>Basic CRUD Application</h2>
+        <p>Click the buttons on datagrid toolbar to do crud actions.</p>
+
         <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
-               url="../php/City/getCity.php"
+               url="../php/TypeClient/getTypeClient.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="Nombre" width="50">Nombre</th>
-                    <th field="CodigoDANE" width="50">Codigo DANE</th>
-                    <th field="CodigoTercero" width="50">Codigo tercero</th>
-                    <th field="IdDepartamento" width="50">Departamento</th>
-                    <th field="Activo" width="50">Estado</th>
+                    <th field="Nombre" width="50">First Name</th>
+
                 </tr>
             </thead>
         </table>
@@ -37,22 +37,7 @@
                     <label>Nombre</label>
                     <input name="Nombre" class="easyui-textbox" required="true">
                 </div>
-                <div class="fitem">
-                    <label>Codigo DANE</label>
-                    <input name="CodigoDANE" class="easyui-textbox" required="true">
-                </div>
-                <div class="fitem">
-                    <label>Codigo Tercero</label>
-                    <input name="CodigoTercero" class="easyui-textbox" required="true">
-                </div>
-                <div class="fitem">
-                    <label>Departamento</label>
-                    <input name="IdDepartamento" class="easyui-combobox" data-options="url:'../php/Department/getDepartment.php',textField:'Nombre',valueField:'IdDepartamento'" required="true" >
-                </div>
-                <div class="fitem">
-                    <label>Estado</label>
-                    <input name="Activo" class="easyui-switchbutton" required="true" >
-                </div>
+
             </form>
         </div>
         <div id="dlg-buttons">
@@ -64,14 +49,14 @@
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
                 $('#fm').form('clear');
-                url = '../php/City/saveCity.php';
+                url = '../php/TypeClient/saveTypeClient.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
                     $('#fm').form('load', row);
-                    url = '../php/City/updateCity.php?IdCiudad=' + row.IdCiudad;
+                    url = '../php/TypeClient/updateTypeClient.php?IdTipoCliente=' + row.IdTipoCliente;
                 }
             }
             function saveUser() {
@@ -81,7 +66,6 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        console.log(result);
                         var result = eval('(' + result + ')');
                         if (result.errorMsg) {
                             $.messager.show({

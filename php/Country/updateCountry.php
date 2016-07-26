@@ -10,26 +10,25 @@ $functions = new functions();
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
-$status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
+$name = $_REQUEST["Nombre"];
+$state = 0;
+if (isset($_REQUEST["Activo"])) {
+    $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;
+}
+$idCountry = $_REQUEST["IdPais"];
 
 $paramsRequest = "{"
-        . "\r\n  \"Nombre\": \"$nameTyping\","
-        . "\r\n  \"Activo\": $status,"
-        . "\r\n  \"Padre\": $dependece,"
-        . "\r\n  \"CodigoSuper\": $codeSuper,"
-        . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
+        . "\r\n  \"IdPais\": $idCountry,"
+        . "\r\n  \"Nombre\": \"$name\","
+        . "\r\n  \"Activo\": $state,"
         . "\r\n  \"Usuario\": $idUser,"
-        . "\r\n  \"DirIp\": \"$$ipUser\"\r\n}";
-echo $paramsRequest;
+        . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
+//echo $paramsRequest;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Tipificacion/PqrTipificacionInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Paises/PaisesActualizar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -40,7 +39,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: b91c14ea-eb1e-cd0d-ea19-67ce7af08732"
+        "postman-token: 517d887d-3993-e76a-36d5-7257eeeeddf3"
     ),
 ));
 

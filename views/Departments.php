@@ -2,26 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ciudades</title>
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
+        <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
+        <link href="../libs/easyui/themes/material/easyui.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/demo/demo.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/plugins/datagrid-scrollview.js" type="text/javascript"></script>
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
         <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
-               url="../php/City/getCity.php"
+               url="../php/Department/getDepartment.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
                     <th field="Nombre" width="50">Nombre</th>
-                    <th field="CodigoDANE" width="50">Codigo DANE</th>
-                    <th field="CodigoTercero" width="50">Codigo tercero</th>
-                    <th field="IdDepartamento" width="50">Departamento</th>
-                    <th field="Activo" width="50">Estado</th>
+                    <th field="IdPais" width="50">Pais</th>
+                    <th field="CodigoDANE" width="50">Phone</th>
+                    <th field="Activo" width="50">Email</th>
                 </tr>
             </thead>
         </table>
@@ -32,26 +33,23 @@
 
         <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
+            <div class="ftitle">User Information</div>
             <form id="fm" method="post" novalidate>
                 <div class="fitem">
                     <label>Nombre</label>
                     <input name="Nombre" class="easyui-textbox" required="true">
                 </div>
                 <div class="fitem">
-                    <label>Codigo DANE</label>
+                    <label>Pais</label>
+                    <input name="IdPais" class="easyui-combobox" data-options="url:'../php/Country/getCountry.php',textField:'Nombre',valueField:'IdPais'" required="true">
+                </div>
+                <div class="fitem">
+                    <label>CodigoDANE</label>
                     <input name="CodigoDANE" class="easyui-textbox" required="true">
                 </div>
                 <div class="fitem">
-                    <label>Codigo Tercero</label>
-                    <input name="CodigoTercero" class="easyui-textbox" required="true">
-                </div>
-                <div class="fitem">
-                    <label>Departamento</label>
-                    <input name="IdDepartamento" class="easyui-combobox" data-options="url:'../php/Department/getDepartment.php',textField:'Nombre',valueField:'IdDepartamento'" required="true" >
-                </div>
-                <div class="fitem">
                     <label>Estado</label>
-                    <input name="Activo" class="easyui-switchbutton" required="true" >
+                    <input name="Activo" class="easyui-switchbutton" required="true">
                 </div>
             </form>
         </div>
@@ -64,14 +62,14 @@
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
                 $('#fm').form('clear');
-                url = '../php/City/saveCity.php';
+                url = '../php/Department/saveDepartment.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
                     $('#fm').form('load', row);
-                    url = '../php/City/updateCity.php?IdCiudad=' + row.IdCiudad;
+                    url = '../php/Department/updateDepartment.php?IdDepartamento=' + row.IdDepartamento;
                 }
             }
             function saveUser() {
@@ -81,7 +79,6 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        console.log(result);
                         var result = eval('(' + result + ')');
                         if (result.errorMsg) {
                             $.messager.show({
@@ -95,6 +92,7 @@
                     }
                 });
             }
+
         </script>
         <style type="text/css">
             #fm{
