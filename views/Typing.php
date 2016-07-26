@@ -17,7 +17,7 @@
         <div style="margin:20px 0;"></div>
         <table title="Folder Browser" id='dg' class="easyui-treegrid"  toolbar='#toolbar' style="width:100%;height:250px"
                data-options="
-               url: '../php/getTyping.php',
+               url: '../php/Typing/getTyping.php',
                method: 'post',
                rownumbers: true,
                idField: 'IdTipificacion',
@@ -57,7 +57,7 @@
             <div class="col-md-6">
                 <label class="label-top">Dependecia</label>
                 <input class="easyui-combotree" field='Padre' name="Padre" style="width:100%;height:32px" id="cc" data-options="
-                       url:'../php/getTyping.php',
+                       url:'../php/Typing/getTyping.php',
                        method:'post',                   
                        onBeforeLoad: function(row,param){
                        if (!row) {	// load top level rows
@@ -100,14 +100,14 @@
         function newUser() {
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Opcion');
             $('#fm').form('clear');
-            url = '../php/saveTyping.php';
+            url = '../php/Typing/saveTyping.php';
         }
         function editUser() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Opcion');
                 $('#fm').form('load', row);
-                url = '../php/updateTyping.php?id=' + row.id;
+                url = '../php/Typing/updateTyping.php?id=' + row.id;
             }
         }
         function saveUser() {

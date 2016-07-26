@@ -1,27 +1,27 @@
 <?php
 
-require_once './functions.php';
-//if (isset($_REQUEST["id"]) && !empty($_REQUEST["id"])) {
+require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../config/Config.ini');
+$config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$nameCompany = $_REQUEST["Nombre"];
+$name = $_REQUEST["Nombre"];
 
-$paramsRequest = "{\r\n  \"Nombre\": \"$nameCompany\","
+$paramsRequest = "{"
+        . "\r\n  \"Nombre\": \"$name\","
         . "\r\n  \"Usuario\": $idUser,"
         . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
-//echo $paramsRequest;
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Empresas/EmpresasInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Unidades/PqrUnidadesInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -32,7 +32,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: c3121a24-3f90-70ee-49c5-b021c00833be"
+        "postman-token: 21852675-1d33-5898-462f-8550d2dc77ca"
     ),
 ));
 
@@ -44,9 +44,5 @@ curl_close($curl);
 if ($err) {
     echo "cURL Error #:" . $err;
 } else {
-    $result = (is_numeric($response)) ? "Empresa ingresada con exito" : "Ha ocurrido un error, por favor intente nuevamente. $response";
-    echo json_encode($result);
+    echo $response;
 }
-//}else{
-//    echo "inicio";
-//}

@@ -17,7 +17,7 @@
         <div style="margin:20px 0;"></div>
         <table title="Folder Browser" id='dg' class="easyui-treegrid"  toolbar='#toolbar' style="width:100%;height:250px"
                data-options="
-               url: '../php/getTyping.php',
+               url: '../php/Typing/getTyping.php',
                method: 'post',
                rownumbers: true,
                idField: 'IdTipificacion',
@@ -57,7 +57,7 @@
             <div class="col-md-6">
                 <label class="label-top">Dependecia</label>
                 <input class="easyui-combotree" field='Padre' name="Padre" style="width:100%;height:32px" id="cc" data-options="
-                       url:'../php/getTyping.php',
+                       url:'../php/Typing/getTyping.php',
                        method:'post',                   
                        onBeforeLoad: function(row,param){
                        if (!row) {	// load top level rows
@@ -100,14 +100,14 @@
         function newUser() {
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Opcion');
             $('#fm').form('clear');
-            url = '../php/saveTyping.php';
+            url = '../php/Typing/saveTyping.php';
         }
         function editUser() {
             var row = $('#dg').datagrid('getSelected');
             if (row) {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Opcion');
                 $('#fm').form('load', row);
-                url = '../php/udateTyping.php?id=' + row.id;
+                url = '../php/Typing/udateTyping.php?id=' + row.id;
             }
         }
         function saveUser() {
@@ -137,25 +137,6 @@
                     consol.log(error);
                 }
             });
-        }
-        function destroyUser() {
-            var row = $('#dg').datagrid('getSelected');
-            if (row) {
-                $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function (r) {
-                    if (r) {
-                        $.post('destroy_user.php', {id: row.id}, function (result) {
-                            if (result.success) {
-                                $('#dg').datagrid('reload');    // reload the user data
-                            } else {
-                                $.messager.show({// show error message
-                                    title: 'Error',
-                                    msg: result.errorMsg
-                                });
-                            }
-                        }, 'json');
-                    }
-                });
-            }
         }
     </script>
     <script src="../libs/bootstrap/moment/moment.js" type="text/javascript"></script>

@@ -1,36 +1,27 @@
 <?php
 
-require_once './functions.php';
+require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../config/Config.ini');
+$config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
+$idUnity = $_REQUEST["IdUnidad"];
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
 
-$idTyping = $_REQUEST["id"];
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
-$status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
+$name = $_REQUEST["Nombre"];
 
-$paramsRequest = "{\r\n  \"IdTipificacion\": $idTyping,"
-        . "\r\n  \"Nombre\": \"$nameTyping\","
-        . "\r\n  \"Activo\": $status,"
-        . "\r\n  \"Padre\": $dependece,"
-        . "\r\n  \"CodigoSuper\": $codeSuper,"
-        . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
+$paramsRequest = "{\r\n  \"IdUnidad\": $idUnity,"
+        . "\r\n  \"Nombre\": \"$name\","
         . "\r\n  \"Usuario\": $idUser,"
-        . "\r\n  \"DirIp\": \"$$ipUser\"\r\n}";
-
+        . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"] . "/api/Pqr_Tipificacion/PqrTipificacionActualizar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Unidades/PqrUnidadesActualizar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -41,7 +32,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: 1a47a70a-3bda-71f6-4d75-d12c713ea8d5"
+        "postman-token: 21852675-1d33-5898-462f-8550d2dc77ca"
     ),
 ));
 

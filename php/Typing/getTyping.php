@@ -1,10 +1,10 @@
 <?php
 
-require_once './functions.php';
+require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../config/Config.ini'); // Archivo de configuracion 
+$config = parse_ini_file('../../config/config.ini'); // Archivo de configuracion 
 
 $functions = new functions();
 
@@ -15,11 +15,12 @@ $status = (isset($_REQUEST["Activo"])) ? $_REQUEST["Activo"] : "null";
 $dependece = (!isset($_POST["id"]) || empty($_POST["id"])) ? 0 : $_POST["id"];
 $codeSuper = (isset($_REQUEST["CodigoSuper"])) ? $_REQUEST["CodigoSuper"] : "null";
 $timeResponse = (isset($_REQUEST["TiempoEstimadoRespuesta"])) ? $_REQUEST["TiempoEstimadoRespuesta"] : "null";
+$idCompany = (isset($_REQUEST["IdEmpresa"])) ? $_REQUEST["IdEmpresa"] : "null";
 
 
 $ipUser = $functions->getRealIp();
 $idUser = $_SESSION["id-user"];
-$array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser);
+$array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser, $idCompany);
 
 
 /*
@@ -35,6 +36,7 @@ $array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeRespon
  *  $dependece      --> Filtro por dependecia(Padre)
  *  $codeSuper      --> Filtro por codigoSuper
  *  $timeResponse   --> Filtro por tiempo de respuesta
+ *  $idCompany      --> Filtro por empresa
  *  $idUser         --> id de la session
  *  $ipUser         --> ip del que ejecuta la accion
  * 
@@ -45,16 +47,17 @@ $array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeRespon
  * 
  */
 
-function peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser) {
+function peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser, $idCompany) {
     $paramsRequest = "{\r\n  \"IdTipificacion\": " . $idTyping . "," .
             "\r\n  \"Nombre\":$name," .
             "\r\n  \"Activo\":  $status ," .
             "\r\n  \"Padre\":  $dependece  ," .
             "\r\n  \"CodigoSuper\" : $codeSuper," .
             "\r\n  \"TiempoEstimadoRespuesta\": $timeResponse ," .
+            "\r\n  \"IdEmpresa\": $idCompany ," .
             "\r\n  \"Usuario\": " . $idUser . "," .
             "\r\n  \"DirIp\": \"" . $ipUser . "\" \r\n}";
-
+//    echo $paramsRequest;
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_PORT => "8002",
@@ -94,19 +97,21 @@ if (!is_array($array)) {
     $result = array();
     $row;
     foreach ($array as $key => $value) {
-        $hasCildren = sizeof(peticion("null", "null", "null", $value["IdTipificacion"], "null", "null", "null", "null"));
+        $hasCildren = sizeof(peticion("null", "null", "null", $value["IdTipificacion"], "null", "null", "null", "null", $idCompany));
+        $total = ($hasCildren > 0) ? "     <b>(" . $hasCildren . ")</b>" : "";
         $row = array(
             "IdTipificacion" => $value["IdTipificacion"],
             "id" => $value["IdTipificacion"],
             "Nombre" => $value["Nombre"],
-            "text" => $value["Nombre"],
+            "text" => $value["Nombre"] . $total,
             "Activo" => $value["Activo"],
             "Padre" => $value["Padre"],
             "CodigoSuper" => $value["CodigoSuper"],
             "TiempoEstimadoRespuesta" => $value["TiempoEstimadoRespuesta"],
             "state" => ($hasCildren > 0) ? "closed" : "open",
+            "serviceAgreements" => ($hasCildren > 0) ? "false" : "true",
             "total" => $hasCildren,
-            "children" => array()
+            "IdEmpresa" => $value["IdTipificacion"]
         );
         array_push($result, $row);
     }

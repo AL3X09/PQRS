@@ -14,7 +14,7 @@
     </head>
     <body>
         <table id="dg" title="Empresas" class="easyui-datagrid" style="width:100%;height:500px"
-               url="../php/getCompany.php"
+               url="../php/Company/getCompany.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="false" fitColumns="true" singleSelect="true">
             <thead>
@@ -47,14 +47,14 @@
             function newUser() {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Empresa');
                 $('#fm').form('clear');
-                url = '../php/saveCompany.php';
+                url = '../php/Company/saveCompany.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Empresa');
                     $('#fm').form('load', row);
-                    url = '../php/updateCompany.php?id=' + row.IdEmpresa;
+                    url = '../php/Company/updateCompany.php?id=' + row.IdEmpresa;
                 }
             }
             function saveUser() {

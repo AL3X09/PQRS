@@ -1,12 +1,12 @@
 <?php
 
-require_once './functions.php';
+require_once '../functions.php';
 
 if (isset($_REQUEST["id"]) && !empty($_REQUEST["id"])) {
     ini_set("display_errors", "on");
     session_start();
 
-    $config = parse_ini_file('../config/Config.ini');
+    $config = parse_ini_file('../../config/config.ini');
     $functions = new functions();
 
     $ipUser = $functions->getRealIp();

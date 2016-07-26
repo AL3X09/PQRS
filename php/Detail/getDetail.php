@@ -1,12 +1,12 @@
 <?php
 
-$config = parse_ini_file("../config/Config.ini");
+$config = parse_ini_file("../../config/config.ini");
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config['server'] . "/api/Pqr_Empresas/EmpresasConsultarTodo",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Detalle/PqrDetalleConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -15,7 +15,7 @@ curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
-        "postman-token: b4c64be5-f2ab-5275-86cd-4116478696b6"
+        "postman-token: 0775e9cc-08f2-307c-2e87-573c280b871f"
     ),
 ));
 
