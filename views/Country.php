@@ -13,7 +13,7 @@
         <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
-        <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Paises" class="easyui-datagrid" style="width:100%;height:500px"
                url="../php/Country/getCountry.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -25,38 +25,39 @@
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Pais</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar Pais</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:60%;height:250px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
+            <legend>Informacion Pais</legend>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
-                    <label>First Name:</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    <label>Nombre</label>
+                    <input name="Nombre" class="easyui-textbox" style="width:100%;height:32px;" required="true">
                 </div>                
-                <div class="fitem">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                     <label>Estado</label>
-                    <input name="Activo" class="easyui-switchbutton" required="true">
+                    <input name="Activo" id="Activo" class="easyui-switchbutton" style="width:100%;height:32px;" required="true">
                 </div>                
             </form>
         </div>
         <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Pais');
                 $('#fm').form('clear');
                 url = '../php/Country/saveCountry.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Pais');
                     $('#fm').form('load', row);
                     url = '../php/Country/updateCountry.php?IdPais=' + row.IdPais;
                 }
@@ -82,6 +83,13 @@
                     }
                 });
             }
+            $(function () {
+                $('#Activo').switchbutton({
+                    onText: 'Activo',
+                    offText: 'Inactivo'
+                })
+            })
+            
         </script>
         <style type="text/css">
             #fm{

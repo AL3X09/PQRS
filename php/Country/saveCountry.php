@@ -8,9 +8,9 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
 $state = 0;
 if (isset($_REQUEST["Activo"])) {
     $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;

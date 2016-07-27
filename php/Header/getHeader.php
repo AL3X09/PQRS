@@ -5,7 +5,7 @@ $config = parse_ini_file("../../config/config.ini");
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8002",
+//    CURLOPT_PORT => "8002",
     CURLOPT_URL => $config["server"] . "/api/Pqr_Encabezado/PqrEncabezadoConsultarTodo",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -15,7 +15,7 @@ curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
-        "postman-token: fa28cede-619e-1419-a7e0-45088ad366b5"
+        "postman-token: 18132c51-38e5-a12e-b522-c61fa26f05f8"
     ),
 ));
 
@@ -27,8 +27,9 @@ curl_close($curl);
 if ($err) {
     echo "cURL Error #:" . $err;
 } else {
+
     $array = json_decode($response, true);
-//    var_dump($array);
+    //    var_dump($array);
     $result = array();
     $row = array();
     foreach ($array as $key => $value) {
@@ -36,6 +37,8 @@ if ($err) {
         $creationDate = (!is_null($value)) ? date_format(new DateTime($value["FechaCreacion"]), 'd-m-Y H:i') : "";
         $client = ($value["IdOrigen"]) ? "on" : "off";
         $valueClient = ($value["IdOrigen"]) ? "SI" : "NO";
+        $responseExpectedDate = (!is_null($value)) ? date_format(new DateTime($value["FechaEstimadaRespuesta"]), 'd-m-Y H:i') : "";
+        $responseDate = (!is_null($value)) ? date_format(new DateTime($value["FechaRespuesta"]), 'd-m-Y H:i') : "";
         $row = array(
             "IdPqrEncabezado" => $value["IdPqrEncabezado"],
             "IdEmpresa" => $value["IdEmpresa"],
@@ -52,13 +55,15 @@ if ($err) {
             "ValorCliente" => $valueClient,
             "IdTipoCliente" => $value["IdTipoCliente"],
             "nTipoCliente" => $value["nTipoCliente"],
-            "IdModulo" => $value["IdModulo"],
-            "nModulo" => $value["nModulo"],
             "IdProducto" => $value["IdProducto"],
             "nProducto" => $value["nProducto"],
             "FechaOcurrencia" => $ocurrenceDate,
+//            "IdModulo" => $value["IdModulo"],
+//            "nModulo" => $value["nModulo"],            
             "IdOrigen" => $value["IdOrigen"],
             "nOrigen" => $value["nOrigen"],
+            "IdTipificacion" => $value["IdTipificacion"],
+            "nTipificacion" => $value["nTipificacion"],
             "Comentario" => $value["Comentario"],
             "IdEstado" => $value["IdEstado"],
             "nEstado" => $value["nEstado"],
@@ -68,7 +73,11 @@ if ($err) {
             "nSucursalRadicacion" => $value["nSucursalRadicacion"],
             "FechaCreacion" => $creationDate,
             "UsuarioCreacion" => $value["UsuarioCreacion"],
-            "nUsuarioCreacion" => $value["nUsuarioCreacion"]
+            "nUsuarioCreacion" => $value["nUsuarioCreacion"],
+            "FechaEstimadaRespuesta" => $responseExpectedDate,
+            "FechaRespuesta" => $responseDate,
+            "IdTipoRespuesta" => $value["IdTipoRespuesta"],
+            "nTipoRespuesta" => $value["nTipoRespuesta"]
         );
         array_push($result, $row);
     }

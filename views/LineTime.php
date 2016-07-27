@@ -13,68 +13,63 @@
         <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
-        <table id="dg" title="Intermediario" class="easyui-datagrid" style="width:100%;height:500px"
-               url="../php/Mediatory/getMediatory.php"
+        <table id="dg" title="My Users" class="easyui-datagrid" style="width:100%;height:500px"
+               url="../php/LineTime/getLineTime.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="Nombre" width="50">Nombre</th>
-                    <th field="Email" width="50">Correo</th>
-                    <th field="Direccion" width="50">Direccion</th>
-                    <th field="ClaveInter" width="50">ClaveInter</th>
-                    <th field="Telefono" width="50">Telefono</th>
+                    <th field="firstname" width="50">First Name</th>
+                    <th field="lastname" width="50">Last Name</th>
+                    <th field="phone" width="50">Phone</th>
+                    <th field="email" width="50">Email</th>
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Intermediario</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Linea tiempo</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:60%;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <legend>Informacion Intermediario</legend>
+            <div class="ftitle">User Information</div>
             <form id="fm" method="post" novalidate>
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true" style="width:100%;height:32px;">
+                <div class="fitem">
+                    <label>First Name:</label>
+                    <input name="firstname" class="easyui-textbox" required="true">
                 </div>
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label>Direccion</label>
-                    <input name="Direccion" class="easyui-textbox" required="true" style="width:100%;height:32px;">
+                <div class="fitem">
+                    <label>Last Name:</label>
+                    <input name="lastname" class="easyui-textbox" required="true">
                 </div>
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label>ClaverInter</label>
-                    <input name="ClaveInter" class="easyui-textbox" type="password" required="true" style="width:100%;height:32px;">
+                <div class="fitem">
+                    <label>Phone:</label>
+                    <input name="phone" class="easyui-textbox" required="true">
                 </div>
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label>Email</label>
-                    <input name="Email" class="easyui-textbox" required="true" style="width:100%;height:32px;">
-                </div>
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label>Telefono</label>
-                    <input name="Telefono" class="easyui-textbox" required="true" style="width:100%;height:32px;">
+                <div class="fitem">
+                    <label>Email:</label>
+                    <input name="email" class="easyui-textbox" required="true" validType="email">
                 </div>
             </form>
         </div>
         <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
         </div>
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Intermediario');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
                 $('#fm').form('clear');
-                url = '../php/Mediatory/saveMediatory.php';
+                url = '../php/LineTime/saveLineTime.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Intermediario');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
                     $('#fm').form('load', row);
-                    url = '../php/Mediatory/updateMediatory.php?IdIntermediario=' + row.IdIntermediario;
+                    url = '../php/LineTime/updateLineTime.php?id=' + row.id;
                 }
             }
             function saveUser() {
@@ -84,7 +79,6 @@
                         return $(this).form('validate');
                     },
                     success: function (result) {
-                        console.log(result);
                         var result = eval('(' + result + ')');
                         if (result.errorMsg) {
                             $.messager.show({
@@ -98,7 +92,25 @@
                     }
                 });
             }
-
+            function destroyUser() {
+                var row = $('#dg').datagrid('getSelected');
+                if (row) {
+                    $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function (r) {
+                        if (r) {
+                            $.post('destroy_user.php', {id: row.id}, function (result) {
+                                if (result.success) {
+                                    $('#dg').datagrid('reload');    // reload the user data
+                                } else {
+                                    $.messager.show({// show error message
+                                        title: 'Error',
+                                        msg: result.errorMsg
+                                    });
+                                }
+                            }, 'json');
+                        }
+                    });
+                }
+            }
         </script>
         <style type="text/css">
             #fm{

@@ -7,11 +7,12 @@
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
     </head>
     <body>
-        <table id="dg" title="Encabezados" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Encabezados" class="easyui-datagrid" style="width:100%;height:500px"
                url="../php/Header/getHeader.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">

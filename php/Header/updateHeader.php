@@ -4,7 +4,7 @@ require_once '../functions.php';
 ini_set("display_errors", "on");
 session_start();
 
-$config = parse_ini_file('../../config/Config.ini');
+$config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
@@ -16,40 +16,43 @@ $idTypePerson = $_REQUEST["IdTipoPersona"];
 $idPerson = $_REQUEST["IdPersona"];
 $idApplicantCompany = $_REQUEST["IdEmpresaSolicitante"];
 $idCity = $_REQUEST["IdCiudad"];
-$hasClient = 1; //$_REQUEST["Cliente"];
+$hasClient = ($_REQUEST["Cliente"] == 'on') ? true : false;
 $idTypeClient = $_REQUEST["IdTipoCliente"];
 $idProduct = $_REQUEST["IdProducto"];
 $ocurrenceDate = date_format(new DateTime($_REQUEST["FechaOcurrencia"]), 'Y-m-d H:i');
 $idOrigin = $_REQUEST["IdOrigen"];
-$idTyping = $_REQUEST["IdTipificacion1"];
+$idTyping = $_REQUEST["IdTipificacion"];
 $comment = $_REQUEST["Comentario"];
 $idState = $_REQUEST["IdEstado"];
-$idUserResponsable = $_REQUEST["UResponsable"];
+//$idUserResponsable = $_REQUEST["UResponsable"];
 $idBranchOffice = 17; //$_REQUEST["IdSucursalRadicacion"];
 $userCreation = 1013660676; //$_REQUEST["UsuarioCreacion"];
 
-$paramsRequest = "{\n\"IdPqrEncabezado\": $idHeader,"
+$paramsRequest = "{\r\n  \"IdPqrEncabezado\": $idHeader,"
         . "\r\n  \"IdEmpresa\": $idCompany,"
         . "\r\n  \"IdTipoPersona\": $idTypePerson,"
         . "\r\n  \"IdPersona\": $idPerson,"
-        . "\r\n  \"IdEmpresaSolicitante\":$idApplicantCompany,"
+        . "\r\n  \"IdEmpresaSolicitante\": $idApplicantCompany,"
         . "\r\n  \"IdCiudad\": $idCity,"
         . "\r\n  \"Cliente\": $hasClient,"
         . "\r\n  \"IdTipoCliente\": $idTypeClient,"
         . "\r\n  \"IdProducto\": $idProduct,"
         . "\r\n  \"FechaOcurrencia\": \"$ocurrenceDate\","
         . "\r\n  \"IdOrigen\": $idOrigin,"
-        . "\r\n  \"IdTipificacion1\": $idTyping,"
+//        . "\r\n  \"IdModulo\": $idModule,"
+        . "\r\n  \"IdTipificacion\": $idTyping,"
         . "\r\n  \"Comentario\": \"$comment\","
         . "\r\n  \"IdEstado\": $idState,"
-        . "\r\n  \"UResponsable\": $idUserResponsable,"
+        . "\r\n  \"UResponsable\": null,"
         . "\r\n  \"IdSucursalRadicacion\": $idBranchOffice,"
-        . "\r\n  \"UsuarioCreacion\": $userCreation,"
+        . "\r\n  \"UsuarioCreacion\": $idUser,"
+        . "\r\n  \"FechaEstimadaRespuesta\": null,"
+        . "\r\n  \"FechaRespuesta\": null,"
+        . "\r\n  \"IdTipoRespuesta\": null,"
         . "\r\n  \"Usuario\": $idUser,"
         . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 
-//echo $paramsRequest;
-
+echo $paramsRequest;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
@@ -65,7 +68,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: 2dc58f87-63e3-3d7b-b8d6-ee008f7e481c"
+        "postman-token: 198e7113-d4e6-8458-610c-90a0d8f6e3e5"
     ),
 ));
 

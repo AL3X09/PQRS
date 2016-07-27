@@ -9,9 +9,9 @@ $config = parse_ini_file('../../config/Config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$nameCompany = $_REQUEST["Nombre"];
+$nameCompany = htmlspecialchars($_REQUEST["Nombre"]);
 
 $paramsRequest = "{\r\n  \"Nombre\": \"$nameCompany\","
         . "\r\n  \"Usuario\": $idUser,"

@@ -54,7 +54,7 @@
                 <label class="label-top">Nombre</label>
                 <input name="Nombre" field='Nombre' class="easyui-textbox" style="width:100%;height:32px" required="true">
             </div>
-            <div class="col-md-6">
+<!--            <div class="col-md-6">
                 <label class="label-top">Dependecia</label>
                 <input class="easyui-combotree" field='Padre' name="Padre" style="width:100%;height:32px" id="cc" data-options="
                        url:'../php/Typing/getTyping.php',
@@ -72,6 +72,24 @@
                        },
                        valueField:'IdTipificacion',
                        textField:'text'
+                       "  style="width:100%">
+            </div>-->
+            <div class="col-md-6">
+                <label class="label-top">Modulo</label>
+                <input class="easyui-combobox" name="IdModulo" style="width:100%;height:32px" id="cc" data-options="
+                       url:'../php/Module/getModule.php',
+                       method:'get',
+                       valueField:'IdModulo',
+                       textField:'Nombre'
+                       "  style="width:100%">
+            </div>
+            <div class="col-md-6">
+                <label class="label-top">Empresa</label>
+                <input class="easyui-combobox" name="IdEmpresa" style="width:100%;height:32px" id="cc" data-options="
+                       url:'../php/Company/getCompany.php',
+                       method:'get',
+                       valueField:'IdEmpresa',
+                       textField:'Nombre'
                        "  style="width:100%">
             </div>
             <div class="col-md-6">
@@ -98,9 +116,12 @@
         var url;
 
         function newUser() {
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Opcion');
-            $('#fm').form('clear');
-            url = '../php/Typing/saveTyping.php';
+            var row = $('#dg').datagrid('getSelected');
+            if (row && row.state === 'closed') {
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Opcion');
+                $('#fm').form('clear');
+                url = '../php/Typing/saveTyping.php?Padre=' + row.IdTipificacion;
+            }
         }
         function editUser() {
             var row = $('#dg').datagrid('getSelected');

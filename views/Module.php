@@ -14,10 +14,7 @@
         <link href="../libs/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Basic CRUD Application</h2>
-        <p>Click the buttons on datagrid toolbar to do crud actions.</p>
-
-        <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Modulos" class="easyui-datagrid" style="width:100%;height:500px"
                url="../php/Module/getModule.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -28,35 +25,36 @@
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Modulo</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:30%;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
+            <legend>Informacion Modulo</legend>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
+                    <input name="Nombre" class="easyui-textbox" required="true" style="width:100%;height:32px;">
                 </div>
 
             </form>
         </div>
         <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Modulo');
                 $('#fm').form('clear');
                 url = '../php/Module/saveModule.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Modulo');
                     $('#fm').form('load', row);
                     url = '../php/Module/updateModule.php?IdModulo=' + row.IdModulo;
                 }
