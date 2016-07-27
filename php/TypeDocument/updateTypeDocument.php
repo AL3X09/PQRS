@@ -8,10 +8,10 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idTypeDocument = $_REQUEST["IdTipoDocumento"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idTypeDocument = intval($_REQUEST["IdTipoDocumento"]);
 
 $paramsRequest = "{\r\n  \"IdTipoDocumento\": $idTypeDocument, "
         . "\r\n  \"Nombre\": \"$name\","

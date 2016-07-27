@@ -8,17 +8,17 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombres"];
-$idDocumentType = $_REQUEST["IdTipoDocumento"];
-$lastname = $_REQUEST["Apellidos"];
-$documentNumber = $_REQUEST["NumeroDocumento"];
-$age = $_REQUEST["Edad"];
-$address = $_REQUEST["Direccion"];
-$phoneNumber = $_REQUEST["TelefonoFijo"];
-$cellphoneNumber = $_REQUEST["TelefonoMovil"];
-$email = $_REQUEST["Email"];
+$name = htmlspecialchars($_REQUEST["Nombres"]);
+$idDocumentType = intval($_REQUEST["IdTipoDocumento"]);
+$lastname = htmlspecialchars($_REQUEST["Apellidos"]);
+$documentNumber = htmlspecialchars($_REQUEST["NumeroDocumento"]);
+$age = intval($_REQUEST["Edad"]);
+$address = htmlspecialchars($_REQUEST["Direccion"]);
+$phoneNumber = intval($_REQUEST["TelefonoFijo"]);
+$cellphoneNumber = intval($_REQUEST["TelefonoMovil"]);
+$email = htmlspecialchars($_REQUEST["Email"]);
 
 $paramsRequest = "{\r\n  \"IdPersona\": 1,"
         . "\r\n  \"IdTipoDocumento\": $idDocumentType,"

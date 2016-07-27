@@ -9,10 +9,10 @@ $config = parse_ini_file('../../config/Config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idSpecialty = $_REQUEST["IdEspecialidad"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idSpecialty = intval($_REQUEST["IdEspecialidad"]);
 $paramsRequest = "{"
         . "\r\n  \"IdEspecialidad\": $idSpecialty,"
         . "\r\n  \"Nombre\": \"$name\","

@@ -8,9 +8,9 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
 $radication = 0;
 if (isset($_REQUEST["Radicacion"])) {
     $radication = ($_REQUEST["Radicacion"] == "on") ? 1 : 0;

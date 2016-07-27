@@ -8,10 +8,10 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idTypeClient = $_REQUEST["IdTipoCliente"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idTypeClient = intval($_REQUEST["IdTipoCliente"]);
 
 $paramsRequest = "{\r\n  \"IdTipoCliente\": $idTypeClient,"
         . "\r\n  \"Nombre\": \"$name\","

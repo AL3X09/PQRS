@@ -8,15 +8,15 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$nameTyping = $_REQUEST["Nombre"];
-$timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
-$codeSuper = $_REQUEST["CodigoSuper"];
+$nameTyping = htmlspecialchars($_REQUEST["Nombre"]);
+$timeResponse = intval($_REQUEST["TiempoEstimadoRespuesta"]);
+$codeSuper = htmlspecialchars($_REQUEST["CodigoSuper"]);
 $status = true; //$_REQUEST["Activo"];
-$dependece = $_REQUEST["Padre"];
-$idModule = $_REQUEST["IdModulo"];
-$idCompany = $_REQUEST["IdEmpresa"];
+$dependece = intval($_REQUEST["Padre"]);
+$idModule = intval($_REQUEST["IdModulo"]);
+$idCompany = intval($_REQUEST["IdEmpresa"]);
 
 $paramsRequest = "{"
         . "\r\n  \"Nombre\": \"$nameTyping\","
