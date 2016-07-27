@@ -8,11 +8,11 @@ $config = parse_ini_file('../../config/Config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
-$idTyping = $_REQUEST["IdTipificacion"];
-$quantity = $_REQUEST["Cantidad"];
-$idUnity = $_REQUEST["IdUnidad"];
-$idServiceAgreement = $_REQUEST["id"];
+$idUser = intval($_SESSION["id-user"]);
+$idTyping = intval($_REQUEST["IdTipificacion"]);
+$quantity = intval($_REQUEST["Cantidad"]);
+$idUnity = intval($_REQUEST["IdUnidad"]);
+$idServiceAgreement = intval($_REQUEST["id"]);
 
 $paramsRequest = "{\r\n  \"IdAcuerdoServicio\": $idServiceAgreement,"
         . "\r\n  \"IdTipificacion\": $idTyping,"

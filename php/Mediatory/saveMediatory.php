@@ -8,13 +8,13 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
 $passwordMediatory = $_REQUEST["ClaveInter"];
-$email = $_REQUEST["Email"];
-$address = $_REQUEST["Direccion"];
-$phoneNumber = $_REQUEST["Telefono"];
+$email = htmlspecialchars($_REQUEST["Email"]);
+$address = htmlspecialchars($_REQUEST["Direccion"]);
+$phoneNumber = htmlspecialchars($_REQUEST["Telefono"]);
 
 $paramsRequest = "{\r\n  \"IdIntermediario\": 1,"
         . "\r\n  \"Nombre\": \"$name\","

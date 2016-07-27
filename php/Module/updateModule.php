@@ -7,11 +7,11 @@ session_start();
 $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
-$idModule = $_REQUEST["IdModulo"];
+$idModule = intval($_REQUEST["IdModulo"]);
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
 
 $paramsRequest = "{\r\n  \"IdModulo\": $idModule,"
         . "\r\n  \"Nombre\": \"$name\","

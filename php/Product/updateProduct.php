@@ -8,11 +8,11 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$idProduct = $_REQUEST["IdProducto"];
-$name = $_REQUEST["Nombre"];
-$codeThird = $_REQUEST["CodigoTercero"];
+$idProduct = intval($_REQUEST["IdProducto"]);
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$codeThird = htmlspecialchars($_REQUEST["CodigoTercero"]);
 $state = 0;
 if (isset($_REQUEST["Activo"])) {
     $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;

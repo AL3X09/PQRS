@@ -8,10 +8,10 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idTypeLineTime = $_REQUEST["IdTipoLineaTiempo"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idTypeLineTime = intval($_REQUEST["IdTipoLineaTiempo"]);
 
 $paramsRequest = "{"
         . "\r\n  \"IdTipoLineaTiempo\": $idTypeLineTime,"

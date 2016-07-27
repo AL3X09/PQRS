@@ -9,10 +9,10 @@ $config = parse_ini_file('../../config/Config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idTypeDiary = $_REQUEST["IdTipoAgenda"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idTypeDiary = intval($_REQUEST["IdTipoAgenda"]);
 $paramsRequest = "{"
         . "\r\n  \"IdTipoAgenda\": $idTypeDiary,"
         . "\r\n  \"Nombre\": \"$name\","

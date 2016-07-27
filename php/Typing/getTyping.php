@@ -10,16 +10,16 @@ $functions = new functions();
 
 
 $idTyping = (isset($_REQUEST["IdTipificacion"])) ? $_REQUEST["IdTipificacion"] : "null";
-$name = (isset($_REQUEST["Nombre"])) ? $_REQUEST["Nombre"] : "null";
+$name = (isset($_REQUEST["Nombre"])) ? htmlspecialchars($_REQUEST["Nombre"]) : "null";
 $status = (isset($_REQUEST["Activo"])) ? $_REQUEST["Activo"] : "null";
-$dependece = (!isset($_POST["id"]) || empty($_POST["id"])) ? 0 : $_POST["id"];
-$codeSuper = (isset($_REQUEST["CodigoSuper"])) ? $_REQUEST["CodigoSuper"] : "null";
+$dependece = (!isset($_POST["id"]) || empty($_POST["id"])) ? 0 : intval($_POST["id"]);
+$codeSuper = (isset($_REQUEST["CodigoSuper"])) ? htmlspecialchars($_REQUEST["CodigoSuper"]) : "null";
 $timeResponse = (isset($_REQUEST["TiempoEstimadoRespuesta"])) ? $_REQUEST["TiempoEstimadoRespuesta"] : "null";
-$idCompany = (isset($_REQUEST["IdEmpresa"])) ? $_REQUEST["IdEmpresa"] : "null";
+$idCompany = (isset($_REQUEST["IdEmpresa"])) ? intval($_REQUEST["IdEmpresa"]) : "null";
 
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 $array = peticion($idTyping, $name, $status, $dependece, $codeSuper, $timeResponse, $idUser, $ipUser, $idCompany);
 
 
