@@ -8,17 +8,17 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idDepartament = $_REQUEST["IdDepartamento"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idDepartament = intval($_REQUEST["IdDepartamento"]);
 $state = 0;
 if (isset($_REQUEST["Activo"])) {
     $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;
 }
-$codeThird = $_REQUEST["CodigoTercero"];
-$codeDANE = $_REQUEST["CodigoDANE"];
-$idCity = $_REQUEST["IdCiudad"];
+$codeThird = htmlspecialchars($_REQUEST["CodigoTercero"]);
+$codeDANE = intval($_REQUEST["CodigoDANE"]);
+$idCity = intval($_REQUEST["IdCiudad"]);
 
 $paramsRequest = "{"
         . "\r\n  \"IdCiudad\": $idCity,"

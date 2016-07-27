@@ -8,11 +8,11 @@ $config = parse_ini_file("../../config/config.ini");
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$idCity = $_REQUEST["IdCiudad"];
-$codeThird = $_REQUEST["CodigoTercero"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$idCity = intval($_REQUEST["IdCiudad"]);
+$codeThird = htmlspecialchars($_REQUEST["CodigoTercero"]);
 
 $paramsRequest = "{\r\n  \"IdSucursal\": 1,"
         . "\r\n  \"Nombre\": \"$name\","

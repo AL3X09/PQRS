@@ -13,7 +13,7 @@
         <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
-        <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Origenes" class="easyui-datagrid" style="width:100%;height:500px"
                url="../php/Origin/getOrigin.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -24,35 +24,35 @@
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Origen</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:30%;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">User Information</div>
+            <legend>Informacion Opcion</legend>
             <form id="fm" method="post" novalidate>
                 <div class="fitem">
-                    <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
+                    <label class="col-md-12 col-lg-12 col-sm-12 col-xs-12">Nombre</label>
+                    <input name="Nombre" class="easyui-textbox" required="true" style="width:100%;height:32px;">
                 </div>                
             </form>
         </div>
         <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Origen');
                 $('#fm').form('clear');
                 url = '../php/Origin/saveOrigin.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Origen');
                     $('#fm').form('load', row);
                     url = '../php/Origin/updateOrigin.php?IdOrigen=' + row.IdOrigen;
                 }

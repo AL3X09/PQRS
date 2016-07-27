@@ -20,29 +20,34 @@ $idTypeClient = $_REQUEST["IdTipoCliente"];
 $idProduct = $_REQUEST["IdProducto"];
 $ocurrenceDate = date_format(new DateTime($_REQUEST["FechaOcurrencia"]), 'Y-m-d H:i');
 $idOrigin = $_REQUEST["IdOrigen"];
-$idTyping = $_REQUEST["IdTipificacion1"];
+$idTyping = $_REQUEST["IdTipificacion"];
 $comment = $_REQUEST["Comentario"];
 $idState = $_REQUEST["IdEstado"];
-$idUserResponsable = $_REQUEST["UResponsable"];
+//$idUserResponsable = $_REQUEST["UResponsable"];
 $idBranchOffice = 17; //$_REQUEST["IdSucursalRadicacion"];
 $userCreation = 1013660676; //$_REQUEST["UsuarioCreacion"];
 
-$paramsRequest = "{\r\n  \"IdEmpresa\": $idCompany,"
+$paramsRequest = "{"
+        . "\r\n  \"IdEmpresa\": $idCompany,"
         . "\r\n  \"IdTipoPersona\": $idTypePerson,"
         . "\r\n  \"IdPersona\": $idPerson,"
-        . "\r\n  \"IdEmpresaSolicitante\":$idApplicantCompany,"
+        . "\r\n  \"IdEmpresaSolicitante\": $idApplicantCompany,"
         . "\r\n  \"IdCiudad\": $idCity,"
         . "\r\n  \"Cliente\": $hasClient,"
         . "\r\n  \"IdTipoCliente\": $idTypeClient,"
         . "\r\n  \"IdProducto\": $idProduct,"
         . "\r\n  \"FechaOcurrencia\": \"$ocurrenceDate\","
         . "\r\n  \"IdOrigen\": $idOrigin,"
-        . "\r\n  \"IdTipificacion1\": $idTyping,"
+//        . "\r\n  \"IdModulo\": $idModule,"
+        . "\r\n  \"IdTipificacion\": $idTyping,"
         . "\r\n  \"Comentario\": \"$comment\","
         . "\r\n  \"IdEstado\": $idState,"
-        . "\r\n  \"UResponsable\": $idUserResponsable,"
+        . "\r\n  \"UResponsable\": null,"
         . "\r\n  \"IdSucursalRadicacion\": $idBranchOffice,"
-        . "\r\n  \"UsuarioCreacion\": $userCreation,"
+        . "\r\n  \"UsuarioCreacion\": $idUser,"
+        . "\r\n  \"FechaEstimadaRespuesta\": null,"
+        . "\r\n  \"FechaRespuesta\": null,"
+        . "\r\n  \"IdTipoRespuesta\": null,"
         . "\r\n  \"Usuario\": $idUser,"
         . "\r\n  \"DirIp\": \"$ipUser\"\r\n}";
 
@@ -51,7 +56,7 @@ $curl = curl_init();
 
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "8002",
-    CURLOPT_URL => $config["server"]."/api/Pqr_Encabezado/PqrEncabezadoInsertar",
+    CURLOPT_URL => $config["server"] . "/api/Pqr_Encabezado/PqrEncabezadoInsertar",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
     CURLOPT_MAXREDIRS => 10,
@@ -62,7 +67,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         "cache-control: no-cache",
         "content-type: application/json",
-        "postman-token: 23d11455-59b4-a386-b308-bb6ffcbb5b95"
+        "postman-token: 198e7113-d4e6-8458-610c-90a0d8f6e3e5"
     ),
 ));
 

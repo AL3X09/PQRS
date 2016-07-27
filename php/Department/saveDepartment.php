@@ -8,15 +8,15 @@ $config = parse_ini_file('../../config/config.ini');
 $functions = new functions();
 
 $ipUser = $functions->getRealIp();
-$idUser = $_SESSION["id-user"];
+$idUser = intval($_SESSION["id-user"]);
 
-$name = $_REQUEST["Nombre"];
-$codeDANE = $_REQUEST["CodigoDANE"];
+$name = htmlspecialchars($_REQUEST["Nombre"]);
+$codeDANE = intval($_REQUEST["CodigoDANE"]);
 $state = 0;
 if (isset($_REQUEST["Activo"])) {
     $state = ($_REQUEST["Activo"] == "on") ? 1 : 0;
 }
-$idCountry = $_REQUEST["IdPais"];
+$idCountry = intval($_REQUEST["IdPais"]);
 
 
 $paramsRequest = "{"

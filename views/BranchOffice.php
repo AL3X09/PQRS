@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
+        <title>Sucursales</title>
         <link href="../libs/easyui/themes/material/easyui.css" rel="stylesheet" type="text/css"/>
         <link href="../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css"/>
         <link href="../libs/easyui/demo/demo.css" rel="stylesheet" type="text/css"/>
@@ -13,10 +13,7 @@
         <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
-        <h2>Basic CRUD Application</h2>
-        <p>Click the buttons on datagrid toolbar to do crud actions.</p>
-
-        <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+        <table id="dg" title="Sucursales" class="easyui-datagrid" style="width:100%;height:400px"
                url="../php/BranchOffice/getBranchOffice.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
@@ -24,48 +21,48 @@
                 <tr>
                     <th field="Nombre" width="50">Nombre</th>
                     <th field="IdCiudad" width="50">Ciudad</th>
-                    <th field="CodigoTercero" width="50">CodigoTercero</th>
+                    <th field="CodigoTercero" width="50">Codigo Tercero</th>
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Sucursal</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:60%;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <div class="ftitle">User Information</div>
+            <legend>Informacion Sucursal</legend>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
-                    <label>Nombre:</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <label>Nombre</label>
+                    <input name="Nombre" class="easyui-textbox" required="true" style="width:100%;height:32px;">
                 </div>
-                <div class="fitem">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                     <label>Ciudad</label>
-                    <input name="IdCiudad" class="easyui-combobox" data-options="url:'../php/City/getCity.php',valueField:'IdCiudad',textField:'Nombre'" required="true">
+                    <input name="IdCiudad" class="easyui-combobox" style="width:100%;height:32px;" data-options="url:'../php/City/getCity.php',valueField:'IdCiudad',textField:'Nombre'" required="true">
                 </div>                
-                <div class="fitem">
-                    <label>Codigo tercero:</label>
-                    <input name="CodigoTercero" class="easyui-textbox" required="true">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <label>Codigo tercero</label>
+                    <input name="CodigoTercero" class="easyui-textbox"  style="width:100%;height:32px;" required="true">
                 </div>
             </form>
         </div>
         <div id="dlg-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Guardar</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New User');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Sucursal');
                 $('#fm').form('clear');
                 url = '../php/BranchOffice/saveBranchOffice.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit User');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Sucursal');
                     $('#fm').form('load', row);
                     url = '../php/BranchOffice/updateBranchOffice.php?IdSucursal=' + row.IdSucursal;
                 }

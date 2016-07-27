@@ -107,6 +107,8 @@ if (!is_array($array)) {
             "Activo" => $value["Activo"],
             "Padre" => $value["Padre"],
             "CodigoSuper" => $value["CodigoSuper"],
+            "IdModulo" => $value["IdModulo"],
+            "IdEmpresa" => $value["IdEmpresa"],
             "TiempoEstimadoRespuesta" => $value["TiempoEstimadoRespuesta"],
             "state" => ($hasCildren > 0) ? "closed" : "open",
             "serviceAgreements" => ($hasCildren > 0) ? "false" : "true",

@@ -10,10 +10,10 @@ if (isset($_REQUEST["id"]) && !empty($_REQUEST["id"])) {
     $functions = new functions();
 
     $ipUser = $functions->getRealIp();
-    $idUser = $_SESSION["id-user"];
+    $idUser = intval($_SESSION["id-user"]);
 
-    $idCompany = $_REQUEST["id"];
-    $nameCompany = $_REQUEST["Nombre"];
+    $idCompany = intval($_REQUEST["id"]);
+    $nameCompany = htmlspecialchars($_REQUEST["Nombre"]);
 
     $paramsRequest = "{\r\n  \"IdEmpresa\": $idCompany,"
             . "\r\n  \"Nombre\": \"$nameCompany\","

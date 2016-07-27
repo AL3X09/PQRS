@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
         <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
         <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
@@ -31,10 +32,11 @@
 
         <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
+            <legend>Informacion Empresa</legend>
             <form id="fm" method="post" novalidate>
-                <div class="fitem">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true">
+                    <input name="Nombre" class="easyui-textbox" style="width:100%;height:32px;" required="true">
                 </div>                
             </form>
         </div>

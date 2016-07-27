@@ -15,11 +15,15 @@ $timeResponse = $_REQUEST["TiempoEstimadoRespuesta"];
 $codeSuper = $_REQUEST["CodigoSuper"];
 $status = true; //$_REQUEST["Activo"];
 $dependece = $_REQUEST["Padre"];
+$idModule = $_REQUEST["IdModulo"];
+$idCompany = $_REQUEST["IdEmpresa"];
 
 $paramsRequest = "{"
         . "\r\n  \"Nombre\": \"$nameTyping\","
         . "\r\n  \"Activo\": $status,"
         . "\r\n  \"Padre\": $dependece,"
+        . "\r\n  \"IdModulo\": $idModule,"
+        . "\r\n  \"IdEmpresa\": $idCompany,"
         . "\r\n  \"CodigoSuper\": $codeSuper,"
         . "\r\n  \"TiempoEstimadoRespuesta\": 10,"
         . "\r\n  \"Usuario\": $idUser,"

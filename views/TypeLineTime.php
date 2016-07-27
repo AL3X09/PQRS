@@ -2,59 +2,40 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Ciudades</title>
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/material/easyui.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/icon.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/themes/color.css">
-        <link rel="stylesheet" type="text/css" href="../libs/easyui/demo/demo.css">
+        <title>Tipo Linea de Tiempo</title>
+        <link href="../libs/easyui/themes/material/easyui.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css"/>
+        <link href="../libs/easyui/demo/demo.css" rel="stylesheet" type="text/css"/>
+        <script src="../libs/easyui/jquery.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+        <script src="../libs/easyui/plugins/datagrid-scrollview.js" type="text/javascript"></script>
         <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="../libs/easyui/jquery.min.js"></script>
-        <script type="text/javascript" src="../libs/easyui/jquery.easyui.min.js"></script>
+        <script src="../libs/easyui/locale/easyui-lang-es.js" type="text/javascript"></script>
     </head>
     <body>
-        <table id="dg" title="Ciudades" class="easyui-datagrid" style="width:100%;height:500px"
-               url="../php/City/getCity.php"
+        <table id="dg" title="Tipos de linea de tiempo" class="easyui-datagrid" style="width:100%;height:500px"
+               url="../php/TypeLineTime/getTypeLineTime.php"
                toolbar="#toolbar" pagination="true"
                rownumbers="true" fitColumns="true" singleSelect="true">
             <thead>
                 <tr>
-                    <th field="Nombre" width="50">Nombre</th>
-                    <th field="CodigoDANE" width="50">Codigo DANE</th>
-                    <th field="CodigoTercero" width="50">Codigo tercero</th>
-                    <th field="IdDepartamento" width="50">Departamento</th>
-                    <th field="Activo" width="50">Estado</th>
+                    <th field="Nombre" width="50">Nombre</th>                    
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nueva Ciudad</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Nuevo Tipo Linea</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar</a>
         </div>
 
-        <div id="dlg" class="easyui-dialog" style="width:60%;height:300px;padding:10px 20px"
+        <div id="dlg" class="easyui-dialog" style="width:60%;height:250px;padding:10px 20px"
              closed="true" buttons="#dlg-buttons">
-            <legend>Informacion Ciudad</legend>
+            <legend>Informacion Pais</legend>
             <form id="fm" method="post" novalidate>
-                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                     <label>Nombre</label>
-                    <input name="Nombre" class="easyui-textbox" required="true" style="width:100%;height:32px;">
-                </div>
-                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                    <label>Codigo DANE</label>
-                    <input name="CodigoDANE" class="easyui-textbox" required="true" style="width:100%;height:32px;">
-                </div>
-                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                    <label>Codigo Tercero</label>
-                    <input name="CodigoTercero" class="easyui-textbox" required="true" style="width:100%;height:32px;">
-                </div>
-                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                    <label>Departamento</label>
-                    <input name="IdDepartamento" class="easyui-combobox" style="width:100%;height:32px;" data-options="url:'../php/Department/getDepartment.php',textField:'Nombre',valueField:'IdDepartamento'" required="true" >
-                </div>
-                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-                    <label>Estado</label>
-                    <input name="Activo" id="Activo" class="easyui-switchbutton" style="width:100%;height:32px;" required="true" >
-                </div>
+                    <input name="Nombre" class="easyui-textbox" style="width:100%;height:32px;" required="true">
+                </div>                
             </form>
         </div>
         <div id="dlg-buttons">
@@ -64,16 +45,16 @@
         <script type="text/javascript">
             var url;
             function newUser() {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nueva Ciudad');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Tipo de linea');
                 $('#fm').form('clear');
-                url = '../php/City/saveCity.php';
+                url = '../php/TypeLineTime/saveTypeLineTime.php';
             }
             function editUser() {
                 var row = $('#dg').datagrid('getSelected');
                 if (row) {
-                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Ciudad');
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Tipo de linea');
                     $('#fm').form('load', row);
-                    url = '../php/City/updateCity.php?IdCiudad=' + row.IdCiudad;
+                    url = '../php/TypeLineTime/updateTypeLineTime.php?IdTipoLineaTiempo=' + row.IdTipoLineaTiempo;
                 }
             }
             function saveUser() {
@@ -103,6 +84,7 @@
                     offText: 'Inactivo'
                 })
             })
+
         </script>
         <style type="text/css">
             #fm{
